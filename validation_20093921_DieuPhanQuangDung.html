@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    * {
+        background-color: yellowgreen;
+    }
+
+    div {
+        border-bottom: 1px solid blue;
+        margin: auto;
+        padding-bottom: 10px;
+        padding-top: 5px;
+        width: 720px;
+    }
+
+    .title {
+        float: left;
+        width: 200px;
+        text-align: right;
+        padding-right: 10px;
+        color: black;
+        font-size: 18px;
+    }
+
+    .radio-buttons label {
+        float: none;
+    }
+
+    .submit {
+        text-align: center;
+    }
+
+    span {
+        color: red;
+        font-size: 14px;
+    }
+
+    input[type=submit],
+    input[type=reset] {
+        padding: .1em .2em;
+        border: 1px solid brown;
+        background-color: green;
+        color: aliceblue;
+        text-shadow: 0 -1px 0 hsla(0, 0%, 0%, .8);
+        font-size: 18px;
+    }
+</style>
+<script>
+    function kiemtratk() {
+        var mau = /^[a-z0-9_-]{6,}$/;
+        let tkktra = document.getElementById('txtTenTK').value.trim();
+        if (mau.test(tkktra) == true) {
+            spktraTK.innerText = '*';
+            return true;
+        } else {
+            spktraTK.innerText = "bắt buộc bắt đầu bằng kí tự";
+            return false;
+        }
+    }
+    function kiemtraMK() {
+        var mau = /^[a-z0-9_-]\d\w.{6,}$/;
+        let mkktra = document.getElementById('txtmkTK').value.trim();
+        if (mau.test(mkktra) == true) {
+            spktramk.innerText = '*';
+            return true;
+        } else {
+            spktramk.innerText = "phải có chữ,số,ít nhất 6 ký tự";
+            return false;
+        }
+    }
+    function kiemtraMKnhaplai() {
+        if (document.getElementById('txtmkTK').value == document.getElementById('txtnhaplaimkTK').value) {
+            spmknhaplai.innerText = '*';
+            return true;
+        } else {
+            spmknhaplai.innerText = "Phải giống ô mật khẩu";
+            return false;
+        }
+    }
+    function kiemtraName() {
+        var mau = /[a-z]\W{1,}/;
+        let tenKtra = document.getElementById('txtmkTK').value.trim();
+        if (mau.test(tenKtra) == true) {
+            spName.innerText = "*";
+            return true;
+        } else {
+            spName.innerText = "Bắt buộc";
+            return false;
+        }
+        function ktraNgaySinh() {
+            var ns = new Date(document.getElementById('txtNgaySinh').value);
+            var today = new Date();
+            if (eval(today.getFullYear() - ns.getFullYear) >= 10) {
+                NgaySinh.innerText = "*";
+                return true;
+            } else {
+                NgaySinh.innerText = "Ngày sinh >=10";
+                return false;
+            }
+        }
+        function submitform() {
+            if (kiemtratk() == false || kiemtraMK() == false || kiemtraMKnhaplai() == false) {
+                alert("Bạn chưa nhập đày đủ và đúng thông tin!");
+            } else {
+                var tt1 = document.getElementById('txtName').value;
+                var tt2 = document.getElementById('NgaySinh').value;
+                var w = open("validation_20093921_DieuPhanQuangDung_info.html", "Kết quả");
+                w.document.write(" <b> THONG TIN CA NHA </b>")
+                w.document.write("Ho Ten:" + tt1 + "<br>");
+                w.document.write("Nam Sinh:" + tt2 + "<br>");
+            }
+        }
+</script>
+
+<body>
+
+    <form name="form" onsubmit="submitform()" ; action="#" method="post">
+        <h1 style="text-align: center;">ĐĂNG KÝ TÀI KHOẢN</h1>
+        <div><label for="lbTenTK">Tên đăng nhập:</label>
+            <input type="text" name="txtTenTK" id="txtTenTK" onblur="return kiemtratk()"> <span id="spktraTK"
+                style="color: red;">*</span>
+        </div>
+        <div>
+            <label for="lbmatkhauTK">Nhập mật khẩu:</label>
+            <input type="text" name="txtmkTK" id="txtmkTK" onblur="return kiemtraMK()"> <span id="spktramk"
+                style="color: red;">*</span>
+        </div>
+        <div>
+            <label for="lbnhaplaimatkhauTK">Nhập lại mật khẩu:</label>
+            <input type="text" name="txtnhaplaimkTK" id="txtnhaplaimkTK" onblur="return kiemtraMKnhaplai()"> <span
+                id="spmknhaplai" style="color: red;">*</span>
+        </div>
+        <h5 style="text-align: center;">THÔNG TIN CÁ NHÂN </h5>
+        <div>
+            <label for="lbName">Nhập họ và tên:</label>
+            <input type="text" name="txtName" id="txtName" onblur="return kiemtraName()"> <span id="spName"
+                style="color: red;">*</span>
+        </div>
+        <div>
+            <label for="lbNgaySinh">Nhập ngày sinh:</label>
+            <input type="date" name="txtNgaySinh" id="txtNgaySinh" size="30" placeholder="txtNgaySinh"
+                onblur="return ktraNgaySinh()"> <span id="NgaySinh"></span>
+        </div>
+        <div class="radio-buttons">
+            <span class="title">Giới tính:</span>
+            <input type="radio" name="gender" id="male" value="M" checked>
+            <label for="male">Nam</label>
+            <input type="radio" name="gender" id="female" value="F">
+            <label for="female">Nữ</label>
+        </div>
+        <div>
+            <label for="diachi">Địa chỉ:</label>
+            <input type="text" name="txtDiaChi" id="txtDiaChi" size="30" placeholder="txtDiaChi"> <span
+                id="diachi"></span>
+        </div>
+        <div>
+            <label for="lbPhone">Nhập số điện thoại:</label>
+            <input type="text" name="txtPhone" id="txtPhone"> <span id="spPhone" style="color: red;">Phải là
+                số</span>
+        </div>
+        <div>
+            <label for="lbEmail">Nhập email:</label>
+            <input type="text" name="txtemail" id="txtemail"> <span id="spEmail" style="color: red;">Nhập đúng địa
+                chỉ email</span>
+        </div>
+        <div class="submit">
+            <input type="submit" value="Đăng ký" id="submit">;
+            <input type="reset" value="hủy" id="submit">;
+        </div>
+    </form>
+</body>
+
+</html>
